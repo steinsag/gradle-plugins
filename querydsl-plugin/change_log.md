@@ -17,4 +17,5 @@
 * Support for `providedCompile` and `providedRuntime` dependencies
 
 ## 1.0.5
+* Upgrade to querydsl 4
 * current SNAPSHOT

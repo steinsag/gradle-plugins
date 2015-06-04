@@ -1,6 +1,6 @@
 package com.ewerk.gradle.plugins.sample;
 
-import com.mysema.query.types.expr.BooleanExpression;
+import com.querydsl.core.types.dsl.BooleanExpression;
 
 /**
  * @author griffio
@@ -8,8 +8,7 @@ import com.mysema.query.types.expr.BooleanExpression;
  */
 public class AnyPredicates {
 
-    public BooleanExpression findId(Long id) {
-        return QAnyJpaEntity.anyJpaEntity.id.eq(id);
-    }
-
+  public BooleanExpression findId(Long id) {
+    return QAnyJpaEntity.anyJpaEntity.id.eq(id);
+  }
 }
