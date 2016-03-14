@@ -1,3 +1,9 @@
+buildscript {
+  repositories {
+    mavenLocal()
+  }
+}
+
 plugins {
   id 'org.gradle.java'
   id 'org.gradle.war'
@@ -7,7 +13,7 @@ plugins {
   id 'com.ewerk.gradle.plugins.integration-test' version '1.0.8'
   id 'com.ewerk.gradle.plugins.querydsl' version '1.0.5'
   id 'com.ewerk.gradle.plugins.dagger' version '1.0.3'
-  id 'com.ewerk.gradle.plugins.jaxb2' version '1.0.1'
+  id 'com.ewerk.gradle.plugins.jaxb2' version '1.0.2-SNAPSHOT'
 }
 
 repositories {

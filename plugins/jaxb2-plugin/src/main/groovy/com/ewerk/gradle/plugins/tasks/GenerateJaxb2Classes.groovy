@@ -12,24 +12,31 @@ import org.gradle.api.tasks.TaskAction
  * @since 1.0.0
  */
 class GenerateJaxb2Classes extends DefaultTask {
-  GenerateJaxb2Classes() {
-    this.group = Jaxb2Plugin.TASK_GROUP
-  }
+    private Set<XjcTaskConfig> xjcConfigs
 
-  @SuppressWarnings("GroovyUnusedDeclaration")
-  @TaskAction
-  def antXjc() {
-    ant.taskdef(
-        name: 'xjc',
-        classname: project.extensions.jaxb2.taskName,
-        classpath: project.configurations.jaxb2.asPath)
-
-    Set<XjcTaskConfig> xjcConfigs = project.extensions.jaxb2.xjc
-
-    for (XjcTaskConfig theConfig : xjcConfigs) {
-      ant.xjc(destdir: theConfig.generatedSourcesDir,
-          package: theConfig.basePackage,
-          schema: theConfig.schema)
+    GenerateJaxb2Classes() {
+        this.group = Jaxb2Plugin.TASK_GROUP
+        xjcConfigs = project.extensions.jaxb2.xjc
+        for (XjcTaskConfig theConfig : this.xjcConfigs) {
+            this.outputs += theConfig.generatedSourcesDir
+        }
     }
-  }
+
+    @SuppressWarnings("GroovyUnusedDeclaration")
+    @TaskAction
+    def antXjc() {
+        this.inputs += project.configurations.jaxb2.asPath
+
+        ant.taskdef(
+                name: 'xjc',
+                classname: project.extensions.jaxb2.taskName,
+                classpath: project.configurations.jaxb2.asPath)
+
+
+        for (XjcTaskConfig theConfig : this.xjcConfigs) {
+            ant.xjc(destdir: theConfig.generatedSourcesDir,
+                    package: theConfig.basePackage,
+                    schema: theConfig.schema)
+        }
+    }
 }
